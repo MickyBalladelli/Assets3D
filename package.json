@@ -1,24 +1,54 @@
 {
-  "name": "assets3d",
-  "private": true,
+  "name": "@mickyballadelli/assets3d",
+  "version": "0.1.0",
+  "description": "Interactive React and Three.js infrastructure atlas.",
   "type": "module",
+  "license": "UNLICENSED",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./styles.css": {
+      "types": "./lib/styles.css.d.ts",
+      "default": "./lib/styles.css"
+    }
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "three": "^0.185.1"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test": "tsx --test tests/*.test.ts",
     "test:browser": "playwright test",
-    "demo:offline": "node scripts/build-fleet-preview.mjs"
+    "demo:offline": "node scripts/build-fleet-preview.mjs",
+    "build:library": "vite build --config vite.library.config.ts && tsc -p tsconfig.library.json && node scripts/prepare-library.mjs",
+    "prepack": "npm run build:library"
   },
   "dependencies": {
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "three": "0.185.1"
+    "@types/three": "0.185.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "@types/three": "0.185.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.185.1",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
     "vite": "^8.3.0"

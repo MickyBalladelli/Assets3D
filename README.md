@@ -11,17 +11,31 @@ Use the carousel or Inspector to navigate with the keyboard. Search by applicati
 
 ## Embed and extend
 
-Import `Visualizer` from `src/Visualizer` and load `src/styles.css`. Pass `graph` for static data or `dataAdapter` for live data. An adapter should return the same snapshot object until data changes and notify subscribers after publishing a new immutable snapshot. Use `onSelectNode`, `onDrillDown`, and `onLensChange` to listen for user actions. The optional `theme` sets the title, background and accent. Pass `overviewAppLimit={24}` to change how many apps the overview shows.
+```sh
+npm install @mickyballadelli/assets3d react three
+```
+
+```tsx
+import { Visualizer } from '@mickyballadelli/assets3d'
+import '@mickyballadelli/assets3d/styles.css'
+
+export default function App() {
+  return <Visualizer />
+}
+```
+
+Pass `graph` for static data or `dataAdapter` for live data. An adapter should return the same snapshot object until data changes and notify subscribers after publishing a new immutable snapshot. Use `onSelectNode`, `onDrillDown`, and `onLensChange` to listen for user actions. The optional `theme` sets the title, background and accent. Pass `overviewAppLimit={24}` to change how many apps the overview shows.
 
 Nodes are keyed by ID. Provide an ISO 8601 `updatedAt` timestamp to include an app in update-date ordering. Set application `security` metadata to show ownership and support information. Use `healthReason` to explain a reported health status. Use `maintenance.obsolete` for an obsolete asset and `maintenance.vulnerabilities` for findings. Open findings and obsolete assets roll up through containment, with each asset counted once per parent. Set `roots` to the top-level applications, `children` to direct containment slots and `edges` to directed relationships. Containment should be acyclic. Supply normalized edge weights between zero and one. Define data centers in optional `graph.locations` and assign assets with `node.locationId`. The application view can filter by site while keeping shared assets visible. Each view shows the current asset, its immediate children and the relationships between those visible assets.
 
-See [examples/extensions.ts](examples/extensions.ts) for a load-balancer mesh and a temperature lens. Pass its registry to `<Visualizer registry={registry} graph={graph} />`, give the asset a `type` of `load-balancer`, and set `metrics.temperature` to its reading in °C. Build the registry before mounting. Model factories create owned Three.js resources per asset and receive flags for detail and reduced geometry. Signal meshes with a standard material can opt into lens tint and emissive changes through `userData.signal`. Keep geometry centered and within roughly a one-unit radius for the built-in orbital layout.
+See `examples/extensions.ts` in the source project for a load-balancer mesh and a temperature lens. Pass its registry to `<Visualizer registry={registry} graph={graph} />`, give the asset a `type` of `load-balancer`, and set `metrics.temperature` to its reading in °C. Build the registry before mounting. Model factories create owned Three.js resources per asset and receive flags for detail and reduced geometry. Signal meshes with a standard material can opt into lens tint and emissive changes through `userData.signal`. Keep geometry centered and within roughly a one-unit radius for the built-in orbital layout.
 
 Explicit readings take priority over roll-ups. Otherwise usage averages available direct child readings and power and carbon sum them. Custom lenses define their own measurement, aggregation, visual encoding, and units.
 
 ## Verification commands
 
-- `npm run build` type-checks and builds the production app.
+- `npm run build` type-checks and builds the production demo.
+- `npm run build:library` builds the npm library and its TypeScript declarations.
 - `npm test` runs the graph and lens unit tests.
 - `npx playwright install chromium` installs the browser for interaction tests.
 - `APP_URL=http://localhost:5173 npm run test:browser` runs the interaction tests against an already running app.

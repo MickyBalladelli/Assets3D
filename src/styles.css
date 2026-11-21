@@ -1,4 +1,4 @@
-:root {
+.atlas {
   color-scheme: dark;
   font-family: "Avenir Next", Avenir, system-ui, sans-serif;
   color: #e7f1f5;
@@ -8,14 +8,13 @@
   --line: #9ad4e628;
 }
 
-* { box-sizing: border-box }
-body { margin: 0 }
-button { color: inherit; font: inherit; cursor: pointer }
-button:disabled { opacity: .38; cursor: default }
-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-button[aria-pressed="true"] { color: var(--accent) }
-[hidden] { display: none !important }
-h1, h2, h3, p { margin: 0 }
+:where(.atlas) * { box-sizing: border-box }
+:where(.atlas) button { color: inherit; font: inherit; cursor: pointer }
+:where(.atlas) button:disabled { opacity: .38; cursor: default }
+:where(.atlas) button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+:where(.atlas) button[aria-pressed="true"] { color: var(--accent) }
+:where(.atlas) [hidden] { display: none !important }
+:where(.atlas) h1, :where(.atlas) h2, :where(.atlas) h3, :where(.atlas) p { margin: 0 }
 
 .atlas {
   --accent: #8ce7dd;
@@ -29,16 +28,16 @@ h1, h2, h3, p { margin: 0 }
   background: radial-gradient(ellipse at 49% 49%, #244352 0%, transparent 56%),
     radial-gradient(ellipse at 30% 72%, #142732 0%, transparent 72%), var(--surface);
 }
-.stage { position: absolute; inset: 0; overflow: hidden; z-index: 0 }
-.stage canvas { display: block; width: 100%; height: 100%; touch-action: none }
-.glass {
+:where(.atlas) .stage { position: absolute; inset: 0; overflow: hidden; z-index: 0 }
+:where(.atlas) .stage canvas { display: block; width: 100%; height: 100%; touch-action: none }
+:where(.atlas) .glass {
   background: #101b25ea;
   border: 1px solid var(--line);
   border-radius: .7rem;
   box-shadow: 0 12px 44px #0004;
   backdrop-filter: blur(18px);
 }
-.masthead {
+:where(.atlas) .masthead {
   position: absolute;
   inset: 0 0 auto;
   min-height: 5.1rem;
@@ -50,9 +49,9 @@ h1, h2, h3, p { margin: 0 }
   pointer-events: none;
   background: linear-gradient(#080d14db, #080d1400);
 }
-.masthead > * { pointer-events: auto }
-.brand { display: flex; align-items: center; gap: .75rem; width: max-content }
-.brand-mark {
+:where(.atlas) .masthead > * { pointer-events: auto }
+:where(.atlas) .brand { display: flex; align-items: center; gap: .75rem; width: max-content }
+:where(.atlas) .brand-mark {
   display: grid;
   place-items: center;
   width: 2.55rem;
@@ -63,167 +62,167 @@ h1, h2, h3, p { margin: 0 }
   color: var(--accent);
   font-size: 1.55rem;
 }
-.brand h1 { font-size: 1.24rem; line-height: 1.05; font-weight: 650; letter-spacing: .02em }
-.brand div > span { display: block; margin-top: .22rem; color: var(--muted); font-size: .75rem }
-.lens { display: flex; gap: .2rem; padding: .25rem; overflow-x: auto; scrollbar-width: thin }
-.lens button, .icon-button {
+:where(.atlas) .brand h1 { font-size: 1.24rem; line-height: 1.05; font-weight: 650; letter-spacing: .02em }
+:where(.atlas) .brand div > span { display: block; margin-top: .22rem; color: var(--muted); font-size: .75rem }
+:where(.atlas) .lens { display: flex; gap: .2rem; padding: .25rem; overflow-x: auto; scrollbar-width: thin }
+:where(.atlas) .lens button, :where(.atlas) .icon-button {
   border: 1px solid transparent;
   background: none;
   border-radius: .43rem;
   white-space: nowrap;
 }
-.lens button { padding: .48rem .68rem; font-size: .875rem; color: #c0cdd6 }
-.lens button[aria-pressed="true"] { background: #75dace18; border-color: #75dace45; color: var(--accent) }
-.lens button:hover, .icon-button:not(:disabled):hover, .inventory-toggle:hover { background: #b3dce921 }
+:where(.atlas) .lens button { padding: .48rem .68rem; font-size: .875rem; color: #c0cdd6 }
+:where(.atlas) .lens button[aria-pressed="true"] { background: #75dace18; border-color: #75dace45; color: var(--accent) }
+:where(.atlas) .lens button:hover, :where(.atlas) .icon-button:not(:disabled):hover, :where(.atlas) .inventory-toggle:hover { background: #b3dce921 }
 .atlas-actions { justify-self: end; display: flex; gap: .4rem }
-.inventory-toggle { padding: .58rem .8rem; font-size: .875rem; white-space: nowrap }
-.settings-dialog {
+:where(.atlas) .inventory-toggle { padding: .58rem .8rem; font-size: .875rem; white-space: nowrap }
+:where(.atlas) .settings-dialog {
   position: fixed; width: min(24rem, calc(100% - 2rem)); padding: 1rem 1.15rem; color: #e7f1f5;
 }
-.settings-dialog::backdrop { background: #050c14b8 }
-.settings-dialog h2 { font-size: 1.2rem }
-.settings-dialog fieldset { margin: .7rem 0 0; padding: .3rem 0 0; border: 0 }
-.settings-dialog legend { color: var(--muted); font-size: .85rem }
-.settings-dialog label { display: flex; align-items: center; gap: .65rem; padding: .55rem 0; font-size: .9rem }
-.settings-dialog input { accent-color: var(--accent) }
-.settings-dialog input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-.inspector-views { display: flex; gap: .35rem; margin-top: .85rem }
-.inspector-views button {
+:where(.atlas) .settings-dialog::backdrop { background: #050c14b8 }
+:where(.atlas) .settings-dialog h2 { font-size: 1.2rem }
+:where(.atlas) .settings-dialog fieldset { margin: .7rem 0 0; padding: .3rem 0 0; border: 0 }
+:where(.atlas) .settings-dialog legend { color: var(--muted); font-size: .85rem }
+:where(.atlas) .settings-dialog label { display: flex; align-items: center; gap: .65rem; padding: .55rem 0; font-size: .9rem }
+:where(.atlas) .settings-dialog input { accent-color: var(--accent) }
+:where(.atlas) .settings-dialog input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+:where(.atlas) .inspector-views { display: flex; gap: .35rem; margin-top: .85rem }
+:where(.atlas) .inspector-views button {
   border: 1px solid var(--line); background: #152534; border-radius: .35rem; padding: .32rem .65rem; font-size: .85rem;
 }
-.inspector-views button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent) }
-.application-security ul { list-style: none; padding: 0; margin: 0 }
-.application-security li + li { margin-top: .25rem }
-.view-navigation {
+:where(.atlas) .inspector-views button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent) }
+:where(.atlas) .application-security ul { list-style: none; padding: 0; margin: 0 }
+:where(.atlas) .application-security li + li { margin-top: .25rem }
+:where(.atlas) .view-navigation {
   position: absolute; top: 5.15rem; left: clamp(1rem, 2.6vw, 2.5rem);
   max-width: calc(100% - 2rem); display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .65rem;
   pointer-events: none;
 }
-.view-navigation > * { pointer-events: auto }
-.breadcrumbs {
+:where(.atlas) .view-navigation > * { pointer-events: auto }
+:where(.atlas) .breadcrumbs {
   max-width: 100%; overflow: auto; scrollbar-width: thin;
   display: flex; gap: .35rem; align-items: center; white-space: nowrap;
 }
-.breadcrumbs > span { display: flex; align-items: center; gap: .35rem }
-.breadcrumbs button { font-size: .875rem; background: #0c161dba; border: 1px solid transparent; border-radius: .35rem; padding: .3rem .45rem; color: var(--muted) }
-.breadcrumbs button:hover { border-color: var(--line) }
-.breadcrumbs [aria-current] { color: var(--accent) }
-.crumb-divider { color: var(--muted) }
-.data-center-filter { display: flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .85rem }
-.data-center-filter select {
+:where(.atlas) .breadcrumbs > span { display: flex; align-items: center; gap: .35rem }
+:where(.atlas) .breadcrumbs button { font-size: .875rem; background: #0c161dba; border: 1px solid transparent; border-radius: .35rem; padding: .3rem .45rem; color: var(--muted) }
+:where(.atlas) .breadcrumbs button:hover { border-color: var(--line) }
+:where(.atlas) .breadcrumbs [aria-current] { color: var(--accent) }
+:where(.atlas) .crumb-divider { color: var(--muted) }
+:where(.atlas) .data-center-filter { display: flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .85rem }
+:where(.atlas) .data-center-filter select {
   color: #d3e9ed; background: #0c1a24; border: 1px solid var(--line);
   border-radius: .35rem; padding: .3rem .43rem; font: inherit; max-width: 100%;
 }
-.data-center-filter select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-.site-platform-label {
+:where(.atlas) .data-center-filter select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+:where(.atlas) .site-platform-label {
   position: absolute; top: 0; left: 0; z-index: 1;
   display: grid; gap: .13rem; text-align: left; white-space: nowrap;
   background: #0a1721f5; border: 1px solid var(--site-color); border-radius: .34rem;
   padding: .32rem .58rem; box-shadow: 0 4px 14px #060c1480;
 }
-.site-platform-label strong { color: var(--site-color); font-size: .83rem }
-.site-platform-label span { color: #c6d7de; font-size: .71rem }
-.site-platform-label:hover, .site-platform-label[data-selected="true"] { background: #1a2d39 }
-.asset-label {
+:where(.atlas) .site-platform-label strong { color: var(--site-color); font-size: .83rem }
+:where(.atlas) .site-platform-label span { color: #c6d7de; font-size: .71rem }
+:where(.atlas) .site-platform-label:hover, :where(.atlas) .site-platform-label[data-selected="true"] { background: #1a2d39 }
+:where(.atlas) .asset-label {
   position: absolute; top: 0; left: 0; padding: .24rem .48rem;
   white-space: nowrap; border: 1px solid #90cfd552; border-radius: .3rem;
   background: #0c1a24f2; font-size: .82rem; color: #d3e9ed; transition: opacity .2s, border-color .2s;
 }
-.asset-label[data-active="true"] { border-color: var(--accent); color: var(--accent) }
-.asset-label[data-lowest="true"] { border-color: #6c9df3; color: #c7dcff }
-.asset-label[data-highest="true"] { border-color: #ffbe55; color: #ffdfad }
-.asset-label[data-health="Watch"]::before, .asset-label[data-health="Critical"]::before { content: "⚠︎"; color: #ffbd77; margin-right: .35rem }
-.asset-label[data-health="Critical"]::before { color: #ff8c84 }
-.asset-label[data-location]::after {
+:where(.atlas) .asset-label[data-active="true"] { border-color: var(--accent); color: var(--accent) }
+:where(.atlas) .asset-label[data-lowest="true"] { border-color: #6c9df3; color: #c7dcff }
+:where(.atlas) .asset-label[data-highest="true"] { border-color: #ffbe55; color: #ffdfad }
+:where(.atlas) .asset-label[data-health="Watch"]::before, :where(.atlas) .asset-label[data-health="Critical"]::before { content: "⚠︎"; color: #ffbd77; margin-right: .35rem }
+:where(.atlas) .asset-label[data-health="Critical"]::before { color: #ff8c84 }
+:where(.atlas) .asset-label[data-location]::after {
   content: attr(data-location); display: block; color: #9dd5d8;
   font-size: .68rem; letter-spacing: .025em; margin-top: .12rem;
 }
-.camera-controls {
+:where(.atlas) .camera-controls {
   position: absolute; left: clamp(1rem, 2.6vw, 2.5rem); top: 50%;
   transform: translateY(-50%); display: grid; gap: .15rem; padding: .25rem;
 }
-.icon-button { display: grid; place-items: center; width: 2rem; height: 2rem; font-size: 1.14rem }
+:where(.atlas) .icon-button { display: grid; place-items: center; width: 2rem; height: 2rem; font-size: 1.14rem }
 .atlas {
   --inspector-width: min(22rem, calc(100% - 4.35rem));
   --inspector-inset: clamp(1rem, 2.6vw, 2.5rem);
 }
-.inspector {
+:where(.atlas) .inspector {
   position: absolute; top: 7.9rem; right: var(--inspector-inset); z-index: 2;
   width: var(--inspector-width); max-height: calc(100% - 11.4rem);
   overflow: auto; scrollbar-width: thin; padding: 1rem;
   animation: panel-in .22s ease-out;
 }
 @keyframes panel-in { from { opacity: 0; translate: .5rem 0 } }
-.panel-head, .list-head, .carousel-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem }
-.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 650 }
-.inspector h2 { font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em }
-.inspector p { margin-top: .4rem; font-size: .93rem; color: var(--muted) }
-.metric { margin: .9rem 0 .65rem; padding: .62rem .75rem; border: 1px solid var(--line); background: #8ce7dd09; border-radius: .45rem; display: flex; justify-content: space-between; align-items: center; gap: .45rem; font-size: .85rem }
-.metric strong { font-size: 1.12rem; color: var(--accent); font-variant-numeric: tabular-nums }
-.health { font-size: .8rem; display: flex; align-items: center; gap: .42rem; color: #a5e4be }
-.health[data-health="Watch"] { color: #ffcf89 }
-.health[data-health="Critical"] { color: #ffaba4 }
-.health-status p { margin: .22rem 0 0 .85rem; font-size: .83rem; line-height: 1.4 }
-.health i { width: .43rem; height: .43rem; border-radius: 100%; background: currentColor }
-.inspector dl { margin: .8rem 0 0; font-size: .85rem }
-.inspector dl div, .relations li { padding: .49rem 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: .8rem }
-.inspector dt, .relations small { color: var(--muted) }
-.inspector dd { margin: 0; text-align: right; overflow-wrap: anywhere }
-.inspector h3 { font-size: .875rem }
-.inspector > h3, .list-head { margin-top: .9rem }
-.list-head button { padding: .22rem .32rem; font-size: .75rem; background: transparent; border: 1px solid var(--line); border-radius: .3rem }
-.asset-list, .relations { list-style: none; padding: 0; margin: .4rem 0 0 }
-.asset-list li button {
+:where(.atlas) .panel-head, :where(.atlas) .list-head, :where(.atlas) .carousel-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem }
+:where(.atlas) .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 650 }
+:where(.atlas) .inspector h2 { font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em }
+:where(.atlas) .inspector p { margin-top: .4rem; font-size: .93rem; color: var(--muted) }
+:where(.atlas) .metric { margin: .9rem 0 .65rem; padding: .62rem .75rem; border: 1px solid var(--line); background: #8ce7dd09; border-radius: .45rem; display: flex; justify-content: space-between; align-items: center; gap: .45rem; font-size: .85rem }
+:where(.atlas) .metric strong { font-size: 1.12rem; color: var(--accent); font-variant-numeric: tabular-nums }
+:where(.atlas) .health { font-size: .8rem; display: flex; align-items: center; gap: .42rem; color: #a5e4be }
+:where(.atlas) .health[data-health="Watch"] { color: #ffcf89 }
+:where(.atlas) .health[data-health="Critical"] { color: #ffaba4 }
+:where(.atlas) .health-status p { margin: .22rem 0 0 .85rem; font-size: .83rem; line-height: 1.4 }
+:where(.atlas) .health i { width: .43rem; height: .43rem; border-radius: 100%; background: currentColor }
+:where(.atlas) .inspector dl { margin: .8rem 0 0; font-size: .85rem }
+:where(.atlas) .inspector dl div, :where(.atlas) .relations li { padding: .49rem 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: .8rem }
+:where(.atlas) .inspector dt, :where(.atlas) .relations small { color: var(--muted) }
+:where(.atlas) .inspector dd { margin: 0; text-align: right; overflow-wrap: anywhere }
+:where(.atlas) .inspector h3 { font-size: .875rem }
+:where(.atlas) .inspector > h3, :where(.atlas) .list-head { margin-top: .9rem }
+:where(.atlas) .list-head button { padding: .22rem .32rem; font-size: .75rem; background: transparent; border: 1px solid var(--line); border-radius: .3rem }
+:where(.atlas) .asset-list, :where(.atlas) .relations { list-style: none; padding: 0; margin: .4rem 0 0 }
+:where(.atlas) .asset-list li button {
   width: 100%; padding: .47rem .25rem; background: transparent; border: 0; border-bottom: 1px solid var(--line);
   display: grid; grid-template-columns: 1.25rem 1fr auto; gap: .5rem; text-align: left; align-items: center;
 }
-.asset-list li button:hover { background: #8ce7dd15 }
-.asset-icon, .asset-value { color: var(--accent) }
-.asset-value { font-size: .8rem; text-align: right; font-variant-numeric: tabular-nums }
-.asset-list strong, .asset-list small { display: block }
-.asset-list strong, .relations li { font-size: .85rem }
-.asset-list small, .relations small { color: var(--muted); font-size: .74rem }
-.carousel { position: absolute; bottom: 3.45rem; left: 50%; transform: translateX(-50%); width: min(49rem, calc(100% - 7rem)) }
-.carousel-head { padding: 0 .25rem .35rem }
-.carousel-head h2 { white-space: nowrap; font-size: .86rem; font-weight: 600 }
-.carousel-head h2 span { color: var(--muted); margin-left: .3rem }
-.app-search {
+:where(.atlas) .asset-list li button:hover { background: #8ce7dd15 }
+:where(.atlas) .asset-icon, :where(.atlas) .asset-value { color: var(--accent) }
+:where(.atlas) .asset-value { font-size: .8rem; text-align: right; font-variant-numeric: tabular-nums }
+:where(.atlas) .asset-list strong, :where(.atlas) .asset-list small { display: block }
+:where(.atlas) .asset-list strong, :where(.atlas) .relations li { font-size: .85rem }
+:where(.atlas) .asset-list small, :where(.atlas) .relations small { color: var(--muted); font-size: .74rem }
+:where(.atlas) .carousel { position: absolute; bottom: 3.45rem; left: 50%; transform: translateX(-50%); width: min(49rem, calc(100% - 7rem)) }
+:where(.atlas) .carousel-head { padding: 0 .25rem .35rem }
+:where(.atlas) .carousel-head h2 { white-space: nowrap; font-size: .86rem; font-weight: 600 }
+:where(.atlas) .carousel-head h2 span { color: var(--muted); margin-left: .3rem }
+:where(.atlas) .app-search {
   margin-left: auto; width: min(12rem, 35%); min-width: 5.5rem;
   padding: .36rem .52rem; border-radius: .4rem; color: #e7f1f5; font: inherit; font-size: .85rem;
 }
-.app-criteria {
+:where(.atlas) .app-criteria {
   min-width: 0; max-width: 14rem;
   padding: .36rem .52rem; border-radius: .4rem; color: #e7f1f5; font: inherit; font-size: .85rem;
 }
-.app-search::placeholder { color: #a2b4c0 }
-.app-search:focus-visible, .app-criteria:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-.carousel-strip > p { color: var(--muted); padding: .4rem }
-.carousel-controls { display: flex; gap: .2rem }
-.carousel-controls button { background: #101b25ea; border: 1px solid var(--line); border-radius: .35rem; padding: .23rem .4rem; font-size: .75rem }
-.carousel-controls button:hover { color: var(--accent) }
-.carousel-strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x mandatory; padding: .15rem }
-.app-card { display: flex; align-items: center; gap: .65rem; padding: .68rem; text-align: left; width: calc((100% - 16px) / 3); min-width: 13.2rem; flex: 0 0 auto; scroll-snap-align: start }
-.carousel-strip[data-manual-scroll] { scroll-snap-type: none }
-.carousel-strip[data-dragging], .carousel-strip[data-dragging] .app-card { cursor: grabbing }
-.app-card { user-select: none }
+:where(.atlas) .app-search::placeholder { color: #a2b4c0 }
+:where(.atlas) .app-search:focus-visible, :where(.atlas) .app-criteria:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+:where(.atlas) .carousel-strip > p { color: var(--muted); padding: .4rem }
+:where(.atlas) .carousel-controls { display: flex; gap: .2rem }
+:where(.atlas) .carousel-controls button { background: #101b25ea; border: 1px solid var(--line); border-radius: .35rem; padding: .23rem .4rem; font-size: .75rem }
+:where(.atlas) .carousel-controls button:hover { color: var(--accent) }
+:where(.atlas) .carousel-strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x mandatory; padding: .15rem }
+:where(.atlas) .app-card { display: flex; align-items: center; gap: .65rem; padding: .68rem; text-align: left; width: calc((100% - 16px) / 3); min-width: 13.2rem; flex: 0 0 auto; scroll-snap-align: start }
+:where(.atlas) .carousel-strip[data-manual-scroll] { scroll-snap-type: none }
+:where(.atlas) .carousel-strip[data-dragging], :where(.atlas) .carousel-strip[data-dragging] .app-card { cursor: grabbing }
+:where(.atlas) .app-card { user-select: none }
 @media (hover: hover) and (pointer: fine) {
-  .carousel-strip:not([data-dragging]) .app-card { cursor: grab }
+  :where(.atlas) .carousel-strip:not([data-dragging]) .app-card { cursor: grab }
 }
-.app-card:hover { border-color: var(--accent); background: #162a36 }
-.app-mark { font-size: 1.3rem; color: var(--accent) }
-.app-name { display: grid; min-width: 0; gap: .2rem }
-.app-name strong { font-size: .91rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-.app-name small { font-size: .75rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-.app-badge { margin-left: auto; font-size: .74rem; white-space: nowrap; color: var(--accent); background: #8ce7dd13; padding: .25rem .35rem; border-radius: .25rem }
-footer {
+:where(.atlas) .app-card:hover { border-color: var(--accent); background: #162a36 }
+:where(.atlas) .app-mark { font-size: 1.3rem; color: var(--accent) }
+:where(.atlas) .app-name { display: grid; min-width: 0; gap: .2rem }
+:where(.atlas) .app-name strong { font-size: .91rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+:where(.atlas) .app-name small { font-size: .75rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+:where(.atlas) .app-badge { margin-left: auto; font-size: .74rem; white-space: nowrap; color: var(--accent); background: #8ce7dd13; padding: .25rem .35rem; border-radius: .25rem }
+:where(.atlas) footer {
   position: absolute; inset: auto 0 0; min-height: 2.55rem; display: flex; align-items: center;
   justify-content: space-between; gap: .75rem; padding: .45rem clamp(1rem, 2.6vw, 2.5rem);
   border-top: 1px solid var(--line); background: #0a131beb; color: #b7c8d1; font-size: .76rem;
 }
-footer b { color: var(--accent); padding-inline: .18rem }
-.stage-note { position: absolute; top: 40%; inset-inline: 11%; text-align: center; color: var(--muted) }
-.stage-note button { margin-inline-start: .5rem; border: 1px solid var(--line); background: #101b25; border-radius: .4rem; padding: .35rem .55rem }
-.sr-only { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap }
+:where(.atlas) footer b { color: var(--accent); padding-inline: .18rem }
+:where(.atlas) .stage-note { position: absolute; top: 40%; inset-inline: 11%; text-align: center; color: var(--muted) }
+:where(.atlas) .stage-note button { margin-inline-start: .5rem; border: 1px solid var(--line); background: #101b25; border-radius: .4rem; padding: .35rem .55rem }
+:where(.atlas) .sr-only { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap }
 
 @media (min-width: 781px) {
   .atlas[data-inspector-open="true"] {
@@ -240,9 +239,9 @@ footer b { color: var(--accent); padding-inline: .18rem }
   }
 }
 @media (max-width: 780px) {
-  .masthead { grid-template-columns: minmax(0, 1fr) auto; gap: .55rem; padding-block: .75rem }
-  .lens { grid-row: 2; grid-column: 1 / -1; justify-self: center; max-width: 100% }
-  .view-navigation { top: 6.95rem }
+  :where(.atlas) .masthead { grid-template-columns: minmax(0, 1fr) auto; gap: .55rem; padding-block: .75rem }
+  :where(.atlas) .lens { grid-row: 2; grid-column: 1 / -1; justify-self: center; max-width: 100% }
+  :where(.atlas) .view-navigation { top: 6.95rem }
   .atlas[data-inspector-open="true"] {
     --inspector-height: min(40%, 20rem);
     --inspector-bottom: 3rem;
@@ -257,22 +256,22 @@ footer b { color: var(--accent); padding-inline: .18rem }
     top: calc((100% - var(--inspector-reserved)) * .56);
   }
   .atlas[data-inspector-open="true"] .carousel { bottom: var(--inspector-reserved) }
-  .carousel { width: calc(100% - 2rem); bottom: 3rem }
-  .gestures { display: none }
+  :where(.atlas) .carousel { width: calc(100% - 2rem); bottom: 3rem }
+  :where(.atlas) .gestures { display: none }
 }
 @media (max-width: 580px) {
-  .carousel-head { flex-wrap: wrap }
-  .app-criteria { max-width: 100% }
-  .app-search { width: auto; flex: 1; min-width: 5.5rem }
+  :where(.atlas) .carousel-head { flex-wrap: wrap }
+  :where(.atlas) .app-criteria { max-width: 100% }
+  :where(.atlas) .app-search { width: auto; flex: 1; min-width: 5.5rem }
 }
 @media (max-width: 380px) {
-  .lens button { padding-inline: .42rem; font-size: .8rem }
+  :where(.atlas) .lens button { padding-inline: .42rem; font-size: .8rem }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important }
+  :where(.atlas) *, :where(.atlas) *::before, :where(.atlas) *::after { animation-duration: .001ms !important; transition-duration: .001ms !important }
 }
 
-.ranking-legend {
+:where(.atlas) .ranking-legend {
   position: absolute;
   top: 5.35rem;
   left: 50%;
@@ -282,27 +281,27 @@ footer b { color: var(--accent); padding-inline: .18rem }
   font-size: .78rem;
   pointer-events: none;
 }
-.ranking-range { display: flex; justify-content: space-between; gap: .7rem; color: var(--muted) }
-.ranking-range strong { color: #eef5f8; font-variant-numeric: tabular-nums }
-.ranking-gradient { height: .3rem; border-radius: .2rem; margin-block: .38rem }
-.ranking-legend p { color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-.ranking-legend p strong { color: #ffce7e }
+:where(.atlas) .ranking-range { display: flex; justify-content: space-between; gap: .7rem; color: var(--muted) }
+:where(.atlas) .ranking-range strong { color: #eef5f8; font-variant-numeric: tabular-nums }
+:where(.atlas) .ranking-gradient { height: .3rem; border-radius: .2rem; margin-block: .38rem }
+:where(.atlas) .ranking-legend p { color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+:where(.atlas) .ranking-legend p strong { color: #ffce7e }
 @media (max-width: 780px) {
-  .ranking-legend { top: 9rem }
+  :where(.atlas) .ranking-legend { top: 9rem }
 }
 
-.asset-label[data-attention="obsolete"]::before,
-.asset-label[data-attention="vulnerable"]::before {
+:where(.atlas) .asset-label[data-attention="obsolete"]::before,
+:where(.atlas) .asset-label[data-attention="vulnerable"]::before {
   content: "⚠︎"; color: #ffcc8f; margin-right: .35rem;
 }
-.asset-label[data-attention="vulnerable"]::before { color: #ff9c93 }
-.app-name .attention-label, .asset-list .attention-label { color: #ffcc8f }
-.attention-label[data-vulnerable="true"] { color: #ffaaa2 }
-.asset-attention {
+:where(.atlas) .asset-label[data-attention="vulnerable"]::before { color: #ff9c93 }
+:where(.atlas) .app-name .attention-label, :where(.atlas) .asset-list .attention-label { color: #ffcc8f }
+:where(.atlas) .attention-label[data-vulnerable="true"] { color: #ffaaa2 }
+:where(.atlas) .asset-attention {
   margin-top: .75rem; padding: .65rem .72rem;
   border: 1px solid #ffcc8f50; border-radius: .45rem; background: #ffcc8f0a;
 }
-.asset-attention dl { margin-top: .3rem }
-.attention-detail { margin-top: .6rem }
-.attention-detail strong { color: #ffcf9c; font-size: .85rem }
-.attention-detail p { margin-top: .18rem; font-size: .83rem }
+:where(.atlas) .asset-attention dl { margin-top: .3rem }
+:where(.atlas) .attention-detail { margin-top: .6rem }
+:where(.atlas) .attention-detail strong { color: #ffcf9c; font-size: .85rem }
+:where(.atlas) .attention-detail p { margin-top: .18rem; font-size: .83rem }

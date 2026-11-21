@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import { FleetDemo } from './FleetDemo'
+import '../src/demo.css'
 import '../src/styles.css'
 import './fleet.css'
 
