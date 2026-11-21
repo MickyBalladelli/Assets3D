@@ -50,6 +50,7 @@
   background: linear-gradient(#080d14db, #080d1400);
 }
 :where(.atlas) .masthead > * { pointer-events: auto }
+:where(.atlas) .top-controls { display: flex; align-items: center; justify-self: center; min-width: 0; gap: .55rem }
 :where(.atlas) .brand { display: flex; align-items: center; gap: .75rem; width: max-content }
 :where(.atlas) .brand-mark {
   display: grid;
@@ -65,6 +66,7 @@
 :where(.atlas) .brand h1 { font-size: 1.24rem; line-height: 1.05; font-weight: 650; letter-spacing: .02em }
 :where(.atlas) .brand div > span { display: block; margin-top: .22rem; color: var(--muted); font-size: .75rem }
 :where(.atlas) .lens { display: flex; gap: .2rem; padding: .25rem; overflow-x: auto; scrollbar-width: thin }
+:where(.atlas) .top-controls .lens { min-width: 0 }
 :where(.atlas) .lens button, :where(.atlas) .icon-button {
   border: 1px solid transparent;
   background: none;
@@ -201,6 +203,27 @@
 :where(.atlas) .carousel-controls button { background: #101b25ea; border: 1px solid var(--line); border-radius: .35rem; padding: .23rem .4rem; font-size: .75rem }
 :where(.atlas) .carousel-controls button:hover { color: var(--accent) }
 :where(.atlas) .carousel-strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x mandatory; padding: .15rem }
+.atlas[data-carousel-position="right"] {
+  --carousel-inset: clamp(1rem, 2.6vw, 2.5rem);
+  --carousel-width: min(22rem, calc(100% - 2rem));
+  --carousel-reserved: calc(var(--carousel-width) + var(--carousel-inset) + .75rem);
+}
+:where(.atlas) .carousel[data-position="right"] {
+  top: 6rem; right: var(--carousel-inset); bottom: 3rem; left: auto;
+  transform: none; width: var(--carousel-width);
+  display: flex; flex-direction: column;
+}
+:where(.atlas) .carousel[data-position="right"] .carousel-head {
+  display: grid; grid-template-columns: 1fr auto; padding-bottom: .5rem;
+}
+:where(.atlas) .carousel[data-position="right"] .app-search,
+:where(.atlas) .carousel[data-position="right"] .app-criteria { grid-column: 1 / -1; width: 100%; max-width: none; margin-left: 0 }
+:where(.atlas) .carousel[data-position="right"] .carousel-strip {
+  min-height: 0; flex: 1; flex-direction: column; overflow-x: hidden; overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+:where(.atlas) .carousel[data-position="right"] .app-card { width: 100%; min-width: 0 }
+:where(.atlas) .carousel[data-position="right"] .carousel-strip[data-manual-scroll] { scroll-snap-type: none }
 :where(.atlas) .app-card { display: flex; align-items: center; gap: .65rem; padding: .68rem; text-align: left; width: calc((100% - 16px) / 3); min-width: 13.2rem; flex: 0 0 auto; scroll-snap-align: start }
 :where(.atlas) .carousel-strip[data-manual-scroll] { scroll-snap-type: none }
 :where(.atlas) .carousel-strip[data-dragging], :where(.atlas) .carousel-strip[data-dragging] .app-card { cursor: grabbing }
@@ -230,6 +253,7 @@
   }
   .atlas[data-inspector-open="true"] .stage { right: var(--inspector-reserved) }
   .atlas[data-inspector-open="true"] .stage-note { right: var(--inspector-reserved) }
+  .atlas[data-carousel-position="right"][data-overview="true"] .stage { right: var(--carousel-reserved) }
   .atlas[data-inspector-open="true"] .carousel,
   .atlas[data-inspector-open="true"] .ranking-legend {
     left: calc((100% - var(--inspector-reserved)) / 2);
@@ -237,11 +261,16 @@
   .atlas[data-inspector-open="true"] .carousel {
     width: min(49rem, calc(100% - var(--inspector-reserved) - 2rem));
   }
+  .atlas[data-carousel-position="right"] .carousel {
+    left: auto; width: var(--carousel-width);
+  }
 }
 @media (max-width: 780px) {
   :where(.atlas) .masthead { grid-template-columns: minmax(0, 1fr) auto; gap: .55rem; padding-block: .75rem }
-  :where(.atlas) .lens { grid-row: 2; grid-column: 1 / -1; justify-self: center; max-width: 100% }
-  :where(.atlas) .view-navigation { top: 6.95rem }
+  :where(.atlas) .top-controls { grid-row: 2; grid-column: 1 / -1; width: 100%; gap: .4rem }
+  :where(.atlas) .top-controls .lens { flex: 1 1 55%; max-width: none }
+  :where(.atlas) .top-controls .lens button { padding: .4rem .5rem; font-size: .78rem }
+  :where(.atlas) .view-navigation { top: 8.5rem }
   .atlas[data-inspector-open="true"] {
     --inspector-height: min(40%, 20rem);
     --inspector-bottom: 3rem;
@@ -257,6 +286,20 @@
   }
   .atlas[data-inspector-open="true"] .carousel { bottom: var(--inspector-reserved) }
   :where(.atlas) .carousel { width: calc(100% - 2rem); bottom: 3rem }
+  :where(.atlas) .carousel[data-position="right"] {
+    top: 9rem; right: 1rem; bottom: 3rem; left: auto;
+    width: var(--carousel-width);
+  }
+  .atlas[data-carousel-position="right"] {
+    --carousel-inset: 1rem;
+    --carousel-width: min(22rem, calc(48% - 1.5rem));
+    --carousel-reserved: calc(var(--carousel-width) + var(--carousel-inset) + .75rem);
+  }
+  :where(.atlas) .carousel[data-position="right"] .carousel-head { display: flex; flex-wrap: wrap }
+  :where(.atlas) .carousel[data-position="right"] .carousel-head h2 { width: 100% }
+  :where(.atlas) .carousel[data-position="right"] .app-search { flex: 1; min-width: 0 }
+  .atlas[data-carousel-position="right"][data-overview="true"] .stage { right: var(--carousel-reserved) }
+  .atlas[data-carousel-position="right"][data-inspector-open="true"] .stage { bottom: var(--inspector-reserved) }
   :where(.atlas) .gestures { display: none }
 }
 @media (max-width: 580px) {
@@ -272,11 +315,10 @@
 }
 
 :where(.atlas) .ranking-legend {
-  position: absolute;
-  top: 5.35rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(20rem, calc(100% - 2rem));
+  position: relative;
+  width: min(18rem, 38vw);
+  flex: 0 1 18rem;
+  min-width: 0;
   padding: .48rem .7rem;
   font-size: .78rem;
   pointer-events: none;
@@ -287,7 +329,15 @@
 :where(.atlas) .ranking-legend p { color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 :where(.atlas) .ranking-legend p strong { color: #ffce7e }
 @media (max-width: 780px) {
-  :where(.atlas) .ranking-legend { top: 9rem }
+  :where(.atlas) .ranking-legend { width: auto; flex: 1 1 40%; padding: .4rem .55rem; font-size: .7rem }
+  :where(.atlas) .ranking-gradient { margin-block: .25rem }
+  :where(.atlas) .ranking-range { font-size: .65rem }
+}
+@media (max-width: 580px) {
+  :where(.atlas) .top-controls { flex-wrap: wrap }
+  :where(.atlas) .top-controls .lens { flex: 1 1 100%; justify-content: center }
+  :where(.atlas) .top-controls .ranking-legend { flex: 1 1 100%; width: 100% }
+  :where(.atlas) .view-navigation { top: 10.5rem }
 }
 
 :where(.atlas) .asset-label[data-attention="obsolete"]::before,

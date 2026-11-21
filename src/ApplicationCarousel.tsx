@@ -22,17 +22,21 @@ interface Props {
 }
 
 export function ApplicationCarousel({ nodes, applicationCount, lens, values, measure, getAttention, displaySettings, criterion, onCriterionChange, onOpen, query, onQueryChange }: Props) {
-  const { strip, stopMotion, handlers } = useCarouselDrag()
-  useEffect(() => { stopMotion() }, [lens, stopMotion])
+  const vertical = displaySettings.carouselPosition === 'right'
+  const { strip, stopMotion, handlers } = useCarouselDrag(vertical ? 'vertical' : 'horizontal')
+  useEffect(() => { stopMotion() }, [lens, vertical, stopMotion])
   const scroll = (direction: number) => {
     if (!strip.current) return
     stopMotion()
-    const width = strip.current.firstElementChild?.getBoundingClientRect().width ?? 200
+    const rect = strip.current.firstElementChild?.getBoundingClientRect()
+    const distance = vertical ? rect?.height ?? 100 : rect?.width ?? 200
     const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
-    strip.current.scrollBy({ left: (width + 8) * direction, behavior })
+    strip.current.scrollBy(vertical
+      ? { top: (distance + 8) * direction, behavior }
+      : { left: (distance + 8) * direction, behavior })
   }
 
-  return <section className="carousel" aria-label="Application carousel">
+  return <section className="carousel" data-position={displaySettings.carouselPosition} aria-label="Application carousel">
     <div className="carousel-head">
       <h2>Applications <span>{nodes.length.toLocaleString()}{nodes.length < applicationCount ? ' of ' + applicationCount.toLocaleString() : ''}</span></h2>
       <input className="app-search glass" type="search" aria-label="Search applications" placeholder="Search apps"
@@ -58,7 +62,7 @@ export function ApplicationCarousel({ nodes, applicationCount, lens, values, mea
         <button disabled={!nodes.length} onClick={() => scroll(1)}>Next</button>
       </div>
     </div>
-    <div className="carousel-strip" ref={strip} {...handlers}>
+    <div className="carousel-strip" data-axis={vertical ? 'vertical' : 'horizontal'} ref={strip} {...handlers}>
       {nodes.map(node => {
         const summary = getAttention(node.id)
         const attention = attentionLabel(summary)

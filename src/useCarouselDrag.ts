@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, type MouseEvent, type PointerEvent } fr
 
 interface Drag {
   id: number
-  startX: number
+  startPosition: number
   startScroll: number
-  lastX: number
+  lastPosition: number
   lastTime: number
   velocity: number
   moving: boolean
@@ -12,11 +12,18 @@ interface Drag {
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 
-export function useCarouselDrag() {
+export function useCarouselDrag(axis: 'horizontal' | 'vertical' = 'horizontal') {
   const strip = useRef<HTMLDivElement>(null)
   const drag = useRef<Drag | null>(null)
   const frame = useRef(0)
   const suppressClick = useRef(false)
+
+  const pointerPosition = (event: PointerEvent<HTMLDivElement>) => axis === 'vertical' ? event.clientY : event.clientX
+  const scrollPosition = (element: HTMLDivElement) => axis === 'vertical' ? element.scrollTop : element.scrollLeft
+  const setScrollPosition = (element: HTMLDivElement, value: number) => {
+    if (axis === 'vertical') element.scrollTop = value
+    else element.scrollLeft = value
+  }
 
   const stopMotion = useCallback(() => {
     cancelAnimationFrame(frame.current)
@@ -31,15 +38,18 @@ export function useCarouselDrag() {
     suppressClick.current = false
     stopMotion()
     const element = event.currentTarget
+    const scrollSize = axis === 'vertical' ? element.scrollHeight : element.scrollWidth
+    const clientSize = axis === 'vertical' ? element.clientHeight : element.clientWidth
     if (!event.isPrimary || event.pointerType === 'touch' || event.button !== 0 ||
-      element.scrollWidth <= element.clientWidth || !(event.target instanceof Element) ||
+      scrollSize <= clientSize || !(event.target instanceof Element) ||
       !event.target.closest('.app-card')) return
 
+    const position = pointerPosition(event)
     drag.current = {
       id: event.pointerId,
-      startX: event.clientX,
-      startScroll: element.scrollLeft,
-      lastX: event.clientX,
+      startPosition: position,
+      startScroll: scrollPosition(element),
+      lastPosition: position,
       lastTime: event.timeStamp,
       velocity: 0,
       moving: false
@@ -50,7 +60,8 @@ export function useCarouselDrag() {
     const active = drag.current
     if (!active || active.id !== event.pointerId) return
     const element = event.currentTarget
-    const delta = active.startX - event.clientX
+    const position = pointerPosition(event)
+    const delta = active.startPosition - position
     if (!active.moving) {
       if (Math.abs(delta) < 5) return
       active.moving = true
@@ -61,13 +72,13 @@ export function useCarouselDrag() {
 
     const elapsed = event.timeStamp - active.lastTime
     if (elapsed > 0) {
-      const velocity = clamp((active.lastX - event.clientX) / elapsed, -3, 3)
+      const velocity = clamp((active.lastPosition - position) / elapsed, -3, 3)
       const weight = 1 - Math.exp(-elapsed / 30)
       active.velocity += (velocity - active.velocity) * weight
-      active.lastX = event.clientX
+      active.lastPosition = position
       active.lastTime = event.timeStamp
     }
-    element.scrollLeft = active.startScroll + delta
+    setScrollPosition(element, active.startScroll + delta)
   }
 
   function finish(event: PointerEvent<HTMLDivElement>, canceled = false) {
@@ -79,21 +90,25 @@ export function useCarouselDrag() {
     suppressClick.current = true
     delete element.dataset.dragging
 
-    const start = element.scrollLeft
+    const start = scrollPosition(element)
     const elapsed = Math.max(0, event.timeStamp - active.lastTime)
     const velocity = canceled ? 0 : active.velocity * Math.exp(-elapsed / 65)
-    const last = element.scrollWidth - element.clientWidth
+    const last = axis === 'vertical'
+      ? element.scrollHeight - element.clientHeight
+      : element.scrollWidth - element.clientWidth
     const firstCard = element.firstElementChild
     const secondCard = firstCard?.nextElementSibling
     const firstRect = firstCard?.getBoundingClientRect()
     const secondRect = secondCard?.getBoundingClientRect()
-    const pitch = firstRect && secondRect ? secondRect.left - firstRect.left : 0
+    const firstCoordinate = axis === 'vertical' ? firstRect?.top : firstRect?.left
+    const secondCoordinate = axis === 'vertical' ? secondRect?.top : secondRect?.left
+    const pitch = firstCoordinate !== undefined && secondCoordinate !== undefined ? secondCoordinate - firstCoordinate : 0
     const coast = clamp(start + velocity * 180, 0, last)
     const snap = pitch > 0 ? clamp(Math.round(coast / pitch) * pitch, 0, last) : coast
     const end = Math.abs(coast - last) < Math.abs(coast - snap) ? last : snap
 
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || Math.abs(end - start) < 1) {
-      element.scrollLeft = matchMedia('(prefers-reduced-motion: reduce)').matches ? start : end
+      setScrollPosition(element, matchMedia('(prefers-reduced-motion: reduce)').matches ? start : end)
       stopMotion()
       return
     }
@@ -101,7 +116,7 @@ export function useCarouselDrag() {
     const began = performance.now()
     function tick(now: number) {
       const progress = clamp((now - began) / duration, 0, 1)
-      element.scrollLeft = start + (end - start) * (1 - (1 - progress) ** 3)
+      setScrollPosition(element, start + (end - start) * (1 - (1 - progress) ** 3))
       if (progress < 1) frame.current = requestAnimationFrame(tick)
       else stopMotion()
     }

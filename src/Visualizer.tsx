@@ -180,7 +180,8 @@ export function Visualizer({
   }, [path, navigate, command, changeLens, lens, lenses])
 
   const colors = { '--surface': theme?.background, '--accent': theme?.accent } as CSSProperties
-  return <main className="atlas" data-inspector-open={inspector} style={colors}>
+  return <main className="atlas" data-inspector-open={inspector} data-carousel-position={displaySettings.carouselPosition}
+    data-overview={overview ? 'true' : 'false'} style={colors}>
     <SceneBoundary>
       <SceneViewport graph={shownGraph} path={path} locationId={locationId} overviewMeasure={overviewMeasure} getAttention={getAttention} registry={registry} lens={lens} values={values} onOpen={open} onSite={chooseSite} onHover={setHoveredId} camera={camera} />
     </SceneBoundary>
@@ -190,8 +191,12 @@ export function Visualizer({
         <span className="brand-mark" aria-hidden="true">◈</span>
         <div><h1>{theme?.title ?? 'Stratum'}</h1><span>Infrastructure atlas</span></div>
       </div>
-      <div className="lens glass" role="group" aria-label="Analytical lens">
-        {(lenses.length ? lenses : [lens]).map((item, index) => <button key={item.id} aria-pressed={lens.id === item.id} onClick={() => changeLens(item)} title={index < 9 ? 'Shortcut ' + (index + 1) : undefined}>{item.label}</button>)}
+      <div className="top-controls">
+        <div className="lens glass" role="group" aria-label="Analytical lens">
+          {(lenses.length ? lenses : [lens]).map((item, index) => <button key={item.id} aria-pressed={lens.id === item.id} onClick={() => changeLens(item)} title={index < 9 ? 'Shortcut ' + (index + 1) : undefined}>{item.label}</button>)}
+        </div>
+        {overview?.high && overview.minimum !== undefined && overview.maximum !== undefined &&
+          <ApplicationRankingLegend lens={lens} measure={overviewMeasure} minimum={overview.minimum} maximum={overview.maximum} highest={data.nodes[overview.high]} />}
       </div>
       <div className="atlas-actions">
         <button className="inventory-toggle glass" aria-expanded={inspector} onClick={() => setInspector(value => !value)}>Inspector</button>
@@ -220,8 +225,6 @@ export function Visualizer({
       <button className="icon-button" aria-label="Reset camera" title="Reset camera (R)" onClick={() => command('reset')}>↺</button>
     </div>
 
-    {overview?.high && overview.minimum !== undefined && overview.maximum !== undefined &&
-      <ApplicationRankingLegend lens={lens} measure={overviewMeasure} minimum={overview.minimum} maximum={overview.maximum} highest={data.nodes[overview.high]} />}
     {overview && <ApplicationCarousel nodes={nodes} applicationCount={view.ids.length} lens={lens}
       values={values} measure={overviewMeasure} getAttention={getAttention} displaySettings={displaySettings} onOpen={open} query={applicationQuery} onQueryChange={search}
       criterion={criterion} onCriterionChange={next => {

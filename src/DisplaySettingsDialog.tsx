@@ -30,6 +30,14 @@ export function DisplaySettingsDialog({ settings, onChange }: Props) {
           {label}
         </label>)}
       </fieldset>
+      <fieldset>
+        <legend>Application carousel position</legend>
+        {(['bottom', 'right'] as const).map(position => <label key={position}>
+          <input type="radio" name="carousel-position" value={position} checked={settings.carouselPosition === position}
+            onChange={() => onChange({ ...settings, carouselPosition: position })} />
+          {position === 'bottom' ? 'Bottom' : 'Right side'}
+        </label>)}
+      </fieldset>
     </dialog>
   </>
 }

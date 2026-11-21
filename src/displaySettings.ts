@@ -2,9 +2,10 @@ export interface DisplaySettings {
   obsolete: boolean
   vulnerabilities: boolean
   security: boolean
+  carouselPosition: 'bottom' | 'right'
 }
 
-const defaults: DisplaySettings = { obsolete: true, vulnerabilities: true, security: true }
+const defaults: DisplaySettings = { obsolete: true, vulnerabilities: true, security: true, carouselPosition: 'bottom' }
 const storageKey = 'stratum.display-settings'
 
 export function readDisplaySettings(): DisplaySettings {
@@ -14,7 +15,8 @@ export function readDisplaySettings(): DisplaySettings {
       return {
         obsolete: typeof saved.obsolete === 'boolean' ? saved.obsolete : defaults.obsolete,
         vulnerabilities: typeof saved.vulnerabilities === 'boolean' ? saved.vulnerabilities : defaults.vulnerabilities,
-        security: typeof saved.security === 'boolean' ? saved.security : defaults.security
+        security: typeof saved.security === 'boolean' ? saved.security : defaults.security,
+        carouselPosition: saved.carouselPosition === 'right' ? 'right' : defaults.carouselPosition
       }
     }
   } catch {
