@@ -69,7 +69,7 @@ export function ApplicationCarousel({ nodes, applicationCount, lens, values, mea
         return <button className="app-card glass" key={node.id} onClick={() => onOpen(node.id)}>
           <span className="app-mark" aria-hidden="true">◈</span>
           <span className="app-name">
-            <strong>{node.name}</strong>
+            <strong title={node.name}>{node.name}</strong>
             {attention
               ? <small className="attention-label" data-vulnerable={Boolean(summary.vulnerabilities)} title={attention}>{attention}</small>
               : <small title={node.description}>{node.description}</small>}

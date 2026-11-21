@@ -24,7 +24,19 @@ export default function App() {
 }
 ```
 
-Pass `graph` for static data or `dataAdapter` for live data. An adapter should return the same snapshot object until data changes and notify subscribers after publishing a new immutable snapshot. Use `onSelectNode`, `onDrillDown`, and `onLensChange` to listen for user actions. The optional `theme` sets the title, background and accent. Pass `overviewAppLimit={24}` to change how many apps the overview shows.
+Pass `graph` for static data or `dataAdapter` for live data. An adapter should return the same snapshot object until data changes and notify subscribers after publishing a new immutable snapshot. Use `onSelectNode`, `onDrillDown`, and `onLensChange` to listen for user actions. The optional `theme` sets the title, subtitle, icon, background and accent. Pass `overviewAppLimit={24}` to change how many apps the overview shows.
+
+```tsx
+<Visualizer theme={{
+  title: 'Assets3D',
+  subtitle: 'Fleet overview',
+  icon: <img src="/fleet-logo.png" alt="" />
+}} />
+```
+
+The visualizer fills its parent’s height. Give the parent a height, or pass a size using `style`, for example `<Visualizer style={{ height: '60vh' }} />`. Use **Settings → Footer** to hide the bottom status bar.
+
+Pass `icon: null` to hide the mark or `subtitle: ''` to hide the subtitle.
 
 Nodes are keyed by ID. Provide an ISO 8601 `updatedAt` timestamp to include an app in update-date ordering. Set application `security` metadata to show ownership and support information. Use `healthReason` to explain a reported health status. Use `maintenance.obsolete` for an obsolete asset and `maintenance.vulnerabilities` for findings. Open findings and obsolete assets roll up through containment, with each asset counted once per parent. Set `roots` to the top-level applications, `children` to direct containment slots and `edges` to directed relationships. Containment should be acyclic. Supply normalized edge weights between zero and one. Define data centers in optional `graph.locations` and assign assets with `node.locationId`. The application view can filter by site while keeping shared assets visible. Each view shows the current asset, its immediate children and the relationships between those visible assets.
 

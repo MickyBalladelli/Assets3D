@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, useSyncExternalStore, type CSSProperties } from 'react'
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react'
 import { ApplicationCarousel } from './ApplicationCarousel'
 import { ApplicationRankingLegend } from './ApplicationRankingLegend'
 import { updateScores, usesUpdateDate, type ApplicationCriterion, type OverviewMeasure } from './applicationCriteria'
@@ -17,10 +17,17 @@ const defaultOverviewAppLimit = 32
 
 export interface VisualizerProps {
   overviewAppLimit?: number
+  style?: CSSProperties
   graph?: Graph
   dataAdapter?: DataAdapter
   registry?: Registry
-  theme?: { title?: string, background?: string, accent?: string }
+  theme?: {
+    title?: string
+    subtitle?: string
+    icon?: ReactNode
+    background?: string
+    accent?: string
+  }
   onSelectNode?(node: Node): void
   onDrillDown?(node: Node, path: readonly string[]): void
   onLensChange?(lens: Lens): void
@@ -28,7 +35,7 @@ export interface VisualizerProps {
 
 export function Visualizer({
   graph = sampleGraph, dataAdapter, registry = defaultRegistry, theme,
-  overviewAppLimit = defaultOverviewAppLimit,
+  overviewAppLimit = defaultOverviewAppLimit, style,
   onSelectNode, onDrillDown, onLensChange
 }: VisualizerProps) {
   const snapshot = useCallback(() => dataAdapter?.getSnapshot() ?? graph, [graph, dataAdapter])
@@ -181,15 +188,18 @@ export function Visualizer({
 
   const colors = { '--surface': theme?.background, '--accent': theme?.accent } as CSSProperties
   return <main className="atlas" data-inspector-open={inspector} data-carousel-position={displaySettings.carouselPosition}
-    data-overview={overview ? 'true' : 'false'} style={colors}>
+    data-overview={Boolean(overview)} data-footer-visible={displaySettings.footer} style={{ ...colors, ...style }}>
     <SceneBoundary>
       <SceneViewport graph={shownGraph} path={path} locationId={locationId} overviewMeasure={overviewMeasure} getAttention={getAttention} registry={registry} lens={lens} values={values} onOpen={open} onSite={chooseSite} onHover={setHoveredId} camera={camera} />
     </SceneBoundary>
 
     <header className="masthead">
       <div className="brand">
-        <span className="brand-mark" aria-hidden="true">◈</span>
-        <div><h1>{theme?.title ?? 'Stratum'}</h1><span>Infrastructure atlas</span></div>
+        {theme?.icon !== null && <span className="brand-mark" aria-hidden="true">{theme?.icon ?? '◈'}</span>}
+        <div>
+          <h1>{theme?.title ?? 'Stratum'}</h1>
+          {theme?.subtitle !== '' && <span>{theme?.subtitle ?? 'Infrastructure atlas'}</span>}
+        </div>
       </div>
       <div className="top-controls">
         <div className="lens glass" role="group" aria-label="Analytical lens">
@@ -231,11 +241,11 @@ export function Visualizer({
         setCriterion(next)
         setHoveredId(null)
       }} />}
-    <footer>
+    {displaySettings.footer && <footer>
       <span>{nodes.length.toLocaleString()} {path.length ? 'assets' : 'applications'} <b>·</b> {linkCount} links</span>
       <span className="gestures">Drag to orbit <b>·</b> Right drag to pan <b>·</b> Scroll to zoom</span>
       <span>{lens.label}{view.focus ? ' · ' + formatMetric(values.get(view.focus.id), lens) : ''}</span>
-    </footer>
+    </footer>}
     <div className="sr-only" role="status">{view.focus?.name ?? 'Application overview'}. {path.length ? nodes.length + ' visible assets' : nodes.length + ' of ' + view.ids.length + ' applications'}. {lens.label} lens.</div>
   </main>
 }

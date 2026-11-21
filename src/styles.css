@@ -21,13 +21,16 @@
   --surface: #0a1017;
   isolation: isolate;
   position: relative;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 350px;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  --footer-space: 2.55rem;
   overflow: hidden;
   background: radial-gradient(ellipse at 49% 49%, #244352 0%, transparent 56%),
     radial-gradient(ellipse at 30% 72%, #142732 0%, transparent 72%), var(--surface);
 }
+.atlas[data-footer-visible="false"] { --footer-space: 0rem }
 :where(.atlas) .stage { position: absolute; inset: 0; overflow: hidden; z-index: 0 }
 :where(.atlas) .stage canvas { display: block; width: 100%; height: 100%; touch-action: none }
 :where(.atlas) .glass {
@@ -63,6 +66,7 @@
   color: var(--accent);
   font-size: 1.55rem;
 }
+:where(.atlas) .brand-mark > :is(img, svg) { width: 1.5rem; height: 1.5rem; object-fit: contain }
 :where(.atlas) .brand h1 { font-size: 1.24rem; line-height: 1.05; font-weight: 650; letter-spacing: .02em }
 :where(.atlas) .brand div > span { display: block; margin-top: .22rem; color: var(--muted); font-size: .75rem }
 :where(.atlas) .lens { display: flex; gap: .2rem; padding: .25rem; overflow-x: auto; scrollbar-width: thin }
@@ -150,7 +154,7 @@
 }
 :where(.atlas) .inspector {
   position: absolute; top: 7.9rem; right: var(--inspector-inset); z-index: 2;
-  width: var(--inspector-width); max-height: calc(100% - 11.4rem);
+  width: var(--inspector-width); max-height: calc(100% - 8.85rem - var(--footer-space));
   overflow: auto; scrollbar-width: thin; padding: 1rem;
   animation: panel-in .22s ease-out;
 }
@@ -184,7 +188,7 @@
 :where(.atlas) .asset-list strong, :where(.atlas) .asset-list small { display: block }
 :where(.atlas) .asset-list strong, :where(.atlas) .relations li { font-size: .85rem }
 :where(.atlas) .asset-list small, :where(.atlas) .relations small { color: var(--muted); font-size: .74rem }
-:where(.atlas) .carousel { position: absolute; bottom: 3.45rem; left: 50%; transform: translateX(-50%); width: min(49rem, calc(100% - 7rem)) }
+:where(.atlas) .carousel { position: absolute; bottom: calc(var(--footer-space) + .9rem); left: 50%; transform: translateX(-50%); width: min(49rem, calc(100% - 7rem)) }
 :where(.atlas) .carousel-head { padding: 0 .25rem .35rem }
 :where(.atlas) .carousel-head h2 { white-space: nowrap; font-size: .86rem; font-weight: 600 }
 :where(.atlas) .carousel-head h2 span { color: var(--muted); margin-left: .3rem }
@@ -205,11 +209,11 @@
 :where(.atlas) .carousel-strip { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x mandatory; padding: .15rem }
 .atlas[data-carousel-position="right"] {
   --carousel-inset: clamp(1rem, 2.6vw, 2.5rem);
-  --carousel-width: min(22rem, calc(100% - 2rem));
+  --carousel-width: min(16rem, 34%);
   --carousel-reserved: calc(var(--carousel-width) + var(--carousel-inset) + .75rem);
 }
 :where(.atlas) .carousel[data-position="right"] {
-  top: 6rem; right: var(--carousel-inset); bottom: 3rem; left: auto;
+  top: 6rem; right: var(--carousel-inset); bottom: calc(var(--footer-space) + .45rem); left: auto;
   transform: none; width: var(--carousel-width);
   display: flex; flex-direction: column;
 }
@@ -222,7 +226,10 @@
   min-height: 0; flex: 1; flex-direction: column; overflow-x: hidden; overflow-y: auto;
   scroll-snap-type: y mandatory;
 }
-:where(.atlas) .carousel[data-position="right"] .app-card { width: 100%; min-width: 0 }
+:where(.atlas) .carousel[data-position="right"] .app-card { width: 100%; min-width: 0; padding: .48rem .55rem; gap: .35rem }
+:where(.atlas) .carousel[data-position="right"] .app-mark { display: none }
+:where(.atlas) .carousel[data-position="right"] .carousel-head { min-width: 0 }
+:where(.atlas) .carousel[data-position="right"] .carousel-head h2 { white-space: normal }
 :where(.atlas) .carousel[data-position="right"] .carousel-strip[data-manual-scroll] { scroll-snap-type: none }
 :where(.atlas) .app-card { display: flex; align-items: center; gap: .65rem; padding: .68rem; text-align: left; width: calc((100% - 16px) / 3); min-width: 13.2rem; flex: 0 0 auto; scroll-snap-align: start }
 :where(.atlas) .carousel-strip[data-manual-scroll] { scroll-snap-type: none }
@@ -273,7 +280,7 @@
   :where(.atlas) .view-navigation { top: 8.5rem }
   .atlas[data-inspector-open="true"] {
     --inspector-height: min(40%, 20rem);
-    --inspector-bottom: 3rem;
+    --inspector-bottom: calc(var(--footer-space) + .45rem);
     --inspector-reserved: calc(var(--inspector-height) + var(--inspector-bottom) + .6rem);
   }
   .atlas[data-inspector-open="true"] .stage { bottom: var(--inspector-reserved) }
@@ -287,12 +294,12 @@
   .atlas[data-inspector-open="true"] .carousel { bottom: var(--inspector-reserved) }
   :where(.atlas) .carousel { width: calc(100% - 2rem); bottom: 3rem }
   :where(.atlas) .carousel[data-position="right"] {
-    top: 9rem; right: 1rem; bottom: 3rem; left: auto;
+    top: 9rem; right: 1rem; bottom: calc(var(--footer-space) + .45rem); left: auto;
     width: var(--carousel-width);
   }
   .atlas[data-carousel-position="right"] {
     --carousel-inset: 1rem;
-    --carousel-width: min(22rem, calc(48% - 1.5rem));
+    --carousel-width: min(14rem, 42%);
     --carousel-reserved: calc(var(--carousel-width) + var(--carousel-inset) + .75rem);
   }
   :where(.atlas) .carousel[data-position="right"] .carousel-head { display: flex; flex-wrap: wrap }

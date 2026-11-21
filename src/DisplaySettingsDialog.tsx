@@ -9,7 +9,8 @@ interface Props {
 const options = [
   ['obsolete', 'Obsolete assets'],
   ['vulnerabilities', 'Vulnerabilities'],
-  ['security', 'Security tab']
+  ['security', 'Security tab'],
+  ['footer', 'Footer']
 ] as const
 
 export function DisplaySettingsDialog({ settings, onChange }: Props) {

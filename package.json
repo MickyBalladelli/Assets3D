@@ -1,6 +1,6 @@
 {
   "name": "@mickyballadelli/assets3d",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "description": "Interactive React and Three.js infrastructure atlas.",
   "type": "module",
   "license": "MIT",
