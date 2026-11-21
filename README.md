@@ -1,6 +1,6 @@
-# Stratum
+# Assets3D
 
-Stratum is a React and Three.js infrastructure atlas. Open an application to see its dependencies. Open a server to see its processor, memory and drives. Drive 02 in Compute 01 has a further level for its controller.
+Assets3D is a React and Three.js infrastructure atlas. Open an application to see its dependencies. Open a server to see its processor, memory and drives. Drive 02 in Compute 01 has a further level for its controller.
 
 ```sh
 npm install
