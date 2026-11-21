@@ -1,0 +1,26 @@
+{
+  "name": "assets3d",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "playwright test",
+    "demo:offline": "node scripts/build-fleet-preview.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@types/three": "0.185.4",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "vite": "^8.3.0"
+  }
+}

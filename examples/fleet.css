@@ -1,0 +1,37 @@
+.fleet-demo {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.fleet-demo .atlas { height: 100%; min-height: 0 }
+.fleet-toolbar {
+  background: #14212d;
+  border-bottom: 1px solid #8ee6dc45;
+  padding: .55rem clamp(.85rem, 2.6vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem 1rem;
+}
+.fleet-summary, .fleet-actions, .fleet-actions label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem;
+}
+.fleet-summary strong { color: #a9f1e8; font-size: .88rem }
+.fleet-summary span, .fleet-actions label { color: #b8c8d4; font-size: .8rem }
+.fleet-summary b { color: #8ce7dd }
+.fleet-actions button, .fleet-actions select {
+  color: #e0f0f5;
+  background: #101a25;
+  border: 1px solid #8ee6dc45;
+  border-radius: .4rem;
+  padding: .3rem .55rem;
+  font: inherit;
+  font-size: .8rem;
+}
+.fleet-actions button:hover { border-color: #8ce7dd }
+.fleet-actions :focus-visible { outline: 2px solid #8ce7dd; outline-offset: 2px }
